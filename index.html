@@ -63,7 +63,7 @@ window.CONFIG = {
   /* ---------- Opsional: musik latar ---------- */
   MUSIC: {
     enabled: true,
-    url: "assets/music/birthdaysong.mp3" // isi URL .mp3 (mis. dari Google Drive share direct link); kosongkan untuk mematikan
+    url: "laguultah.mp3" // isi URL .mp3 (mis. dari Google Drive share direct link); kosongkan untuk mematikan
   },
 
   /* ---------- Tema warna (opsional, kosongkan untuk default) ---------- */
@@ -608,8 +608,13 @@ function enterApp(name){
   $("#guestGreet").textContent = name;
   $("#rsvpName").value = name;
   initApp();
-}
 
+const audio = $("#bgMusic");
+
+if(audio.src){
+    audio.play().catch(()=>{});
+}
+}
 /* ===== App initialisation ===== */
 function initApp(){
   fillEventDetails();
