@@ -171,11 +171,10 @@ a{color:inherit;text-decoration:none}
     justify-content:center;
     gap:15px;
     flex-wrap:wrap;
-
+}
 .hero-countdown-title{
     margin-top:10px;
     margin-bottom:15px;
-}
 }
 
 .hero-time{
@@ -341,7 +340,7 @@ footer p{color:var(--muted);font-size:.85rem;margin-top:.5rem}
       <p class="err hidden" id="loginErr"></p>
       <button type="submit" class="btn btn-primary">Buka Undangan</button>
     </form>
-    <p class="guests" id="guestList">
+    <p class="guests" id="guestList"></p>
   </div>
 </main>
 
@@ -521,7 +520,11 @@ footer p{color:var(--muted);font-size:.85rem;margin-top:.5rem}
 
 <div id="toast"></div>
 <div id="lightbox"></div>
-<audio id="bgMusic" loop></audio>
+<audio
+    id="bgMusic"
+    preload="auto"
+    loop>
+</audio>
 
 <!-- ═══════════════════ SCRIPT ═══════════════════ -->
 <script>
@@ -556,7 +559,6 @@ function makePetals(container, count=14){
   }
 }
 makePetals($("#petals-login"));
-
 
 /* ===== Toast ===== */
 let toastTimer;
@@ -613,7 +615,13 @@ function enterApp(name){
 const audio = $("#bgMusic");
 
 if(audio.src){
-    audio.play().catch(()=>{});
+    audio.currentTime = 0;
+
+    audio.play()
+    .then(()=>{
+        $("#musicBtn").textContent="⏸";
+    })
+    .catch(()=>{});
 }
 }
 /* ===== App initialisation ===== */
@@ -635,7 +643,7 @@ function initApp(){
 function fillEventDetails(){
   const E = CFG.EVENT;
   document.title            = `Undangan Ulang Tahun ${E.honoree}`;
-  $("#brandName").textContent = "Valery's Birhtday";
+  $("#brandName").textContent = "Valery's Birthday";
   $("#heroTagline").textContent = E.tagline;
   $("#heroTitle").textContent   = E.title;
   $("#galleryTitle").textContent = E.honoree;
@@ -866,10 +874,10 @@ function bindFabs(){
     audio.src = M.url;
     const btn = $("#musicBtn");
     btn.classList.remove("hidden");
-    let playing = false;
+    let playing = !audio.paused;
     btn.addEventListener("click", () => {
       if (playing){ audio.pause(); btn.textContent = "🎵"; }
-      else { audio.play().catch(()=>toast("Tidak bisa memutar musik","err")); btn.textContent = "⏸"; }
+      else { audio.play().catch(()=>toast("Tidak bisa memutar musik","err")); playing = true; btn.textContent = "⏸"; }
       playing = !playing;
     });
   }
