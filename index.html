@@ -48,7 +48,7 @@ window.CONFIG = {
 
   /* ---------- Backend Google Apps Script ---------- */
   // URL Web App hasil deploy Apps Script (doGet = ambil ucapan, doPost = simpan RSVP)
-  WEB_APP_URL: "https://script.google.com/macros/s/AKfycbyc0oTPqWXrzB_ufwhRFWEW1NJZJaHONNUbzvOV5iQ3xiP_QtVl3z1XKxGneGDXGuLl/exec",
+  WEB_APP_URL: "https://script.google.com/macros/s/AKfycbymrJH-3Rp3BTApmSzO7wrzqTGmqPITC046w7qKH8fgUF-kiYlYXvLL4G6Nm4rQXxV3/exec",
 
   /* ---------- Opsional: hadiah / amplop digital ---------- */
   GIFTS: {
@@ -63,7 +63,7 @@ window.CONFIG = {
   /* ---------- Opsional: musik latar ---------- */
   MUSIC: {
     enabled: true,
-    url: "" // isi URL .mp3 (mis. dari Google Drive share direct link); kosongkan untuk mematikan
+    url: "https://drive.google.com/uc?export=download&id=1qJdd35ocUZvcQc0A2wH1yygrxEcmKIb-" // isi URL .mp3 (mis. dari Google Drive share direct link); kosongkan untuk mematikan
   },
 
   /* ---------- Tema warna (opsional, kosongkan untuk default) ---------- */
@@ -89,9 +89,10 @@ window.CONFIG = {
   --shadow-elegant:0 30px 80px -30px rgba(90,31,43,.4);
   --shadow-gold:0 10px 40px -10px rgba(212,163,74,.5);
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);line-height:1.6;-webkit-font-smoothing:antialiased}
+ *{box-sizing:border-box;margin:0;padding:0}
+ html{scroll-behavior:smooth;font-size:17px;-webkit-text-size-adjust:100%}
+ @media(min-width:768px){html{font-size:16px}}
+ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--fg);line-height:1.7;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;letter-spacing:-.01em;font-weight:600;color:var(--burgundy)}
 img{max-width:100%;display:block}
 button,input,textarea{font-family:inherit;font-size:inherit;color:inherit}
@@ -147,6 +148,64 @@ a{color:inherit;text-decoration:none}
 @media(min-width:768px){.nav ul{display:flex}}
 
 /* ---------- HERO ---------- */
+
+.hero-divider-icon{
+    margin:30px 0 18px;
+    color:var(--gold);
+    font-size:22px;
+    letter-spacing:10px;
+    text-align:center;
+}
+
+.hero-countdown-title{
+    font-family:'Great Vibes',cursive;
+    font-size:34px;
+    color:var(--gold);
+    margin-bottom:18px;
+    text-align:center;
+    text-shadow:0 2px 8px rgba(0,0,0,.3);
+}
+.hero-countdown{
+    margin-top:15px;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+
+.hero-countdown-title{
+    margin-top:10px;
+    margin-bottom:15px;
+}
+}
+
+.hero-time{
+    width:90px;
+    padding:15px;
+    border-radius:18px;
+
+    background:rgba(255,255,255,.15);
+    backdrop-filter:blur(10px);
+
+    border:1px solid rgba(255,255,255,.3);
+
+    text-align:center;
+}
+
+.hero-time .num{
+    font-size:38px;
+    color:white;
+    font-family:'Cormorant Garamond',serif;
+    font-weight:700;
+    line-height:1;
+}
+
+.hero-time .lbl{
+    margin-top:8px;
+    color:white;
+    font-size:12px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
 .hero{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .hero .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.5s ease}
 .hero .slide.active{opacity:1}
@@ -205,7 +264,7 @@ section{padding:5rem 1rem}
 .rsvp-form{margin-top:2.5rem;background:var(--card);border-radius:1.5rem;padding:1.75rem;box-shadow:var(--shadow-elegant);display:flex;flex-direction:column;gap:1.25rem}
 @media(min-width:640px){.rsvp-form{padding:2.5rem}}
 .field label{display:block;text-transform:uppercase;letter-spacing:.15em;font-size:.7rem;font-weight:600;color:var(--muted);margin-bottom:.5rem}
-.field input,.field textarea{width:100%;padding:.85rem 1rem;border-radius:1rem;border:1px solid var(--border);background:var(--bg);outline:none;transition:border-color .2s,box-shadow .2s}
+ .field input,.field textarea{width:100%;padding:.85rem 1rem;font-size:16px;border-radius:1rem;border:1px solid var(--border);background:var(--bg);outline:none;transition:border-color .2s,box-shadow .2s}
 .field input:focus,.field textarea:focus{border-color:var(--rose);box-shadow:0 0 0 3px rgba(217,122,139,.25);background:#fff}
 .field input[readonly]{background:var(--cream);color:var(--burgundy)}
 .field textarea{resize:none;min-height:6rem}
@@ -295,7 +354,7 @@ footer p{color:var(--muted);font-size:.85rem;margin-top:.5rem}
       <a href="#hero" class="brand" id="brandName">Birthday</a>
       <ul>
         <li><a href="#detail">Detail</a></li>
-        <li><a href="#countdown">Countdown</a></li>
+        <li><a href="#hero">Countdown</a></li>
         <li><a href="#gallery">Galeri</a></li>
         <li><a href="#rsvp">RSVP</a></li>
         <li><a href="#wishes">Ucapan</a></li>
@@ -318,6 +377,39 @@ footer p{color:var(--muted);font-size:.85rem;margin-top:.5rem}
         <a href="#detail" class="btn btn-gold">Lihat Detail</a>
         <a href="#rsvp" class="btn btn-ghost">Konfirmasi Kehadiran</a>
       </div>
+
+
+<div class="hero-divider-icon fade-up" style="animation-delay:.7s">
+    ✦ ✦ ✦
+</div>
+
+<div class="hero-countdown-title fade-up" style="animation-delay:.7s">
+    Celebration Begins In
+</div>
+
+<div class="hero-countdown fade-up" style="animation-delay:.7s">
+    
+    <div class="hero-time">
+        <div class="num" id="hero-cd-d">00</div>
+        <div class="lbl">Hari</div>
+    </div>
+
+    <div class="hero-time">
+        <div class="num" id="hero-cd-h">00</div>
+        <div class="lbl">Jam</div>
+    </div>
+
+    <div class="hero-time">
+        <div class="num" id="hero-cd-m">00</div>
+        <div class="lbl">Menit</div>
+    </div>
+
+    <div class="hero-time">
+        <div class="num" id="hero-cd-s">00</div>
+        <div class="lbl">Detik</div>
+    </div>
+
+</div>
     </div>
     <div class="scroll-cue"><span>Scroll</span><span class="bar"></span></div>
   </header>
@@ -344,29 +436,12 @@ footer p{color:var(--muted);font-size:.85rem;margin-top:.5rem}
     </div>
   </section>
 
-  <!-- Countdown -->
+  <!-- Gallery -->
   <section id="countdown" class="countdown-sec">
     <div class="petals" id="petals-cd"></div>
     <div class="container-md" style="position:relative;z-index:2">
       <div class="section-heading">
-        <p class="script" style="color:var(--burgundy)">Counting Down</p>
-        <h2>Menuju Birthday Party</h2>
-        <div class="divider"><span class="line"></span><span class="star">✦</span><span class="line"></span></div>
-      </div>
-      <div class="countdown-grid">
-        <div class="cd-cell"><div class="num" id="cd-d">00</div><div class="lbl">Hari</div></div>
-        <div class="cd-cell"><div class="num" id="cd-h">00</div><div class="lbl">Jam</div></div>
-        <div class="cd-cell"><div class="num" id="cd-m">00</div><div class="lbl">Menit</div></div>
-        <div class="cd-cell"><div class="num" id="cd-s">00</div><div class="lbl">Detik</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Gallery -->
-  <section id="gallery">
-    <div class="container">
-      <div class="section-heading">
-        <p class="script">The Moments of</p>
+        <p class="script">The Moments Of</p>
         <h2 id="galleryTitle"></h2>
         <div class="divider"><span class="line"></span><span class="star">✦</span><span class="line"></span></div>
       </div>
@@ -391,6 +466,15 @@ footer p{color:var(--muted);font-size:.85rem;margin-top:.5rem}
             <button type="button" class="status-btn" data-status="Tidak Hadir">😢 Tidak Hadir</button>
           </div>
         </div>
+<div class="field hidden" id="guestCountField">
+    <label>Jumlah Orang yang Hadir</label>
+    <input
+        type="number"
+        id="guestCount"
+        min="1"
+        max="5"
+        value="1">
+</div>
         <div class="field"><label>Ucapan & Doa</label><textarea id="rsvpMsg" rows="4" placeholder="Tulis ucapan spesial Anda..."></textarea></div>
         <button type="submit" class="btn btn-primary" id="rsvpSubmit">Kirim Konfirmasi</button>
         <p class="success hidden" id="rsvpOk">✓ Konfirmasi Anda tersimpan. Terima kasih!</p>
@@ -412,7 +496,7 @@ footer p{color:var(--muted);font-size:.85rem;margin-top:.5rem}
   </section>
 
   <!-- Wishes -->
-  <section id="wishes" style="padding-top:0">
+  <section id="wishes" style="padding-top:5rem">
     <div class="container-md">
       <div class="section-heading">
         <p class="script">Guestbook</p>
@@ -425,7 +509,7 @@ footer p{color:var(--muted);font-size:.85rem;margin-top:.5rem}
 
   <footer>
     <p class="script">Thank You</p>
-    <p>Dibuat dengan ❤️ untuk merayakan hari spesial.</p>
+    <p>Dibuat dengan ❤️ untuk merayakan hari spesial Valery.</p>
   </footer>
 
   <!-- Floating action buttons -->
@@ -545,7 +629,7 @@ function initApp(){
 function fillEventDetails(){
   const E = CFG.EVENT;
   document.title            = `Undangan Ulang Tahun ${E.honoree}`;
-  $("#brandName").textContent = `${E.honoree} Birthday`;
+  $("#brandName").textContent = "Valery's Birhtday";
   $("#heroTagline").textContent = E.tagline;
   $("#heroTitle").textContent   = E.title;
   $("#galleryTitle").textContent = E.honoree;
@@ -592,10 +676,17 @@ function buildGallery(){
 function startCountdown(){
   const tick = () => {
     const diff = Math.max(0, EVENT_DATE.getTime() - Date.now());
-    $("#cd-d").textContent = String(Math.floor(diff/86400000)).padStart(2,"0");
-    $("#cd-h").textContent = String(Math.floor(diff/3600000)%24).padStart(2,"0");
-    $("#cd-m").textContent = String(Math.floor(diff/60000)%60).padStart(2,"0");
-    $("#cd-s").textContent = String(Math.floor(diff/1000)%60).padStart(2,"0");
+    const days = String(Math.floor(diff/86400000)).padStart(2,"0");
+const hours = String(Math.floor(diff/3600000)%24).padStart(2,"0");
+const mins = String(Math.floor(diff/60000)%60).padStart(2,"0");
+const secs = String(Math.floor(diff/1000)%60).padStart(2,"0");
+
+$("#hero-cd-d").textContent = days;
+$("#hero-cd-h").textContent = hours;
+$("#hero-cd-m").textContent = mins;
+$("#hero-cd-s").textContent = secs;
+
+
   };
   tick();
   setInterval(tick, 1000);
@@ -638,21 +729,37 @@ function bindDetailActions(){
 function bindRsvp(){
   let status = "";
   const statusBtns = $$(".status-btn");
-  statusBtns.forEach(b => b.addEventListener("click", () => {
+statusBtns.forEach(b => b.addEventListener("click", () => {
+
     status = b.dataset.status;
-    statusBtns.forEach(x => x.classList.toggle("active", x === b));
-  }));
+
+    statusBtns.forEach(x =>
+        x.classList.toggle("active", x === b)
+    );
+
+    if(status === "Hadir"){
+        $("#guestCountField").classList.remove("hidden");
+    }else{
+        $("#guestCountField").classList.add("hidden");
+        $("#guestCount").value = 1;
+    }
+
+}));
 
   $("#rsvpForm").addEventListener("submit", async e => {
     e.preventDefault();
     if (!status){ toast("Silakan pilih status kehadiran.", "err"); return; }
 
     const entry = {
-      nama:     guest,
-      status,
-      ucapan:   $("#rsvpMsg").value.trim(),
-      timestamp: new Date().toISOString()
-    };
+    nama: guest,
+    status,
+    jumlahOrang:
+        status === "Hadir"
+            ? Number($("#guestCount").value)
+            : 0,
+    ucapan: $("#rsvpMsg").value.trim(),
+    timestamp: new Date().toISOString()
+};
 
     const btn = $("#rsvpSubmit");
     btn.disabled = true;
