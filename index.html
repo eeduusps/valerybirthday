@@ -8,6 +8,75 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     ⚙️  KONFIGURASI UNDANGAN  (edit bagian ini saja)
+     ─────────────────────────────────────────────────────────────────── -->
+<script>
+window.CONFIG = {
+  /* ---------- Identitas acara ---------- */
+  EVENT: {
+    honoree:    "Valery Gracielle Edlovia",       // nama yang berulang tahun
+    title:      "Valery's Birthday",              // judul besar di hero
+    tagline:    "You're invited",                 // teks skrip di atas judul
+    dateISO:    "2026-08-08T11:00:00+07:00",      // format ISO (waktu lokal + zona)
+    dateLabel:  "08 Agustus 2026",
+    dayLabel:   "Sabtu",
+    timeLabel:  "11:00 WIB",
+    timeSub:    "Sampai selesai",
+    venue:      "Aroem Mahakam Resto",
+    venueSub:   "Jakarta Selatan",
+    address:    "Aroem Mahakam Resto, Jakarta Selatan",
+    mapsUrl:    "https://www.google.com/maps/place/aroem+mahakam/data=!4m2!3m1!1s0x2e69f1898798e1c5:0x723c96e71ecc7511?sa=X&ved=1t:242&hl=id&ictx=111",       // link Google Maps venue
+    // Untuk Google Calendar (UTC, format YYYYMMDDTHHMMSSZ)
+    calStart:   "20260808T040000Z",
+    calEnd:     "20260808T060000Z"
+  },
+
+  /* ---------- Foto (hero slider & galeri) ---------- */
+  IMAGES: [
+    "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=1400&q=80",
+    "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=1400&q=80",
+    "https://images.unsplash.com/photo-1513151233558-d860c5398176?w=1400&q=80",
+    "https://images.unsplash.com/photo-1478146896981-b80fe463b330?w=1400&q=80",
+    "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=1400&q=80",
+    "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?w=1400&q=80"
+  ],
+
+  /* ---------- Daftar tamu (login by name) ---------- */
+  GUEST_LIST: ["Test", "John", "Siti", "Andi", "Rina", "Dewi"],
+
+  /* ---------- Backend Google Apps Script ---------- */
+  // URL Web App hasil deploy Apps Script (doGet = ambil ucapan, doPost = simpan RSVP)
+  WEB_APP_URL: "https://script.google.com/macros/s/AKfycbyc0oTPqWXrzB_ufwhRFWEW1NJZJaHONNUbzvOV5iQ3xiP_QtVl3z1XKxGneGDXGuLl/exec",
+
+  /* ---------- Opsional: hadiah / amplop digital ---------- */
+  GIFTS: {
+    enabled: false,
+    note:    "Kehadiran Anda adalah hadiah terindah. Namun jika berkenan mengirim tanda kasih:",
+    accounts: [
+      { bank: "BCA",    number: "1234567890", holder: "Valery A." },
+      { bank: "OVO/GoPay", number: "0812-3456-7890", holder: "Valery A." }
+    ]
+  },
+
+  /* ---------- Opsional: musik latar ---------- */
+  MUSIC: {
+    enabled: true,
+    url: "" // isi URL .mp3 (mis. dari Google Drive share direct link); kosongkan untuk mematikan
+  },
+
+  /* ---------- Tema warna (opsional, kosongkan untuk default) ---------- */
+  THEME: {
+    bg:       "#fdf7f3",
+    rose:     "#d97a8b",
+    burgundy: "#5a1f2b",
+    gold:     "#d4a34a"
+  }
+};
+</script>
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+
 <style>
 :root{
   --bg:#fdf7f3; --fg:#2b1a1e; --card:#ffffff; --muted:#7a5c62;
@@ -54,7 +123,7 @@ a{color:inherit;text-decoration:none}
 .divider .line{height:1px;width:3rem;background:rgba(212,163,74,.6)}
 .divider .star{color:var(--gold)}
 
-/* Login */
+/* ---------- LOGIN ---------- */
 .login-wrap{position:relative;min-height:100vh;background:var(--grad-hero);overflow:hidden;display:flex;align-items:center;justify-content:center;padding:2rem 1rem}
 .login-card{position:relative;z-index:2;width:100%;max-width:26rem;background:rgba(255,255,255,.9);backdrop-filter:blur(20px);border-radius:1.5rem;padding:2.5rem;box-shadow:var(--shadow-elegant);text-align:center}
 .login-card .script{font-size:2rem}
@@ -67,7 +136,7 @@ a{color:inherit;text-decoration:none}
 .login-card .err{color:#c0392b;font-size:.85rem}
 .login-card .guests{margin-top:1.5rem;font-size:.75rem;color:var(--muted)}
 
-/* Nav */
+/* ---------- NAV ---------- */
 .nav{position:fixed;top:0;left:0;right:0;z-index:40;background:rgba(253,247,243,.75);backdrop-filter:blur(20px);border-bottom:1px solid rgba(236,216,220,.6)}
 .nav-inner{max-width:72rem;margin:0 auto;padding:.75rem 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
 .nav .brand{font-family:'Great Vibes',cursive;font-size:1.6rem;color:var(--rose)}
@@ -77,7 +146,7 @@ a{color:inherit;text-decoration:none}
 .nav .logout:hover{border-color:var(--rose);color:var(--rose)}
 @media(min-width:768px){.nav ul{display:flex}}
 
-/* Hero */
+/* ---------- HERO ---------- */
 .hero{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .hero .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.5s ease}
 .hero .slide.active{opacity:1}
@@ -92,7 +161,7 @@ a{color:inherit;text-decoration:none}
 .scroll-cue .bar{height:2rem;width:1px;background:rgba(255,255,255,.6);animation:pulse 1.5s ease-in-out infinite}
 @keyframes pulse{50%{opacity:.3}}
 
-/* Sections */
+/* ---------- SECTIONS ---------- */
 section{padding:5rem 1rem}
 @media(min-width:640px){section{padding:7rem 1rem}}
 .container{max-width:72rem;margin:0 auto}
@@ -102,7 +171,7 @@ section{padding:5rem 1rem}
 .section-heading .script{font-size:1.9rem}
 .section-heading h2{font-size:clamp(2rem,5vw,3rem);margin-top:.25rem}
 
-/* Detail */
+/* ---------- DETAIL ---------- */
 .detail-grid{display:grid;gap:1.25rem;grid-template-columns:1fr}
 @media(min-width:768px){.detail-grid{grid-template-columns:repeat(3,1fr)}}
 .detail-card{background:var(--card);border-radius:1.5rem;padding:2rem;text-align:center;box-shadow:var(--shadow-soft);transition:transform .3s,box-shadow .3s}
@@ -113,7 +182,7 @@ section{padding:5rem 1rem}
 .detail-card .sub{color:var(--muted);font-size:.85rem;margin-top:.25rem}
 .detail-actions{display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;margin-top:2rem}
 
-/* Countdown */
+/* ---------- COUNTDOWN ---------- */
 .countdown-sec{background:var(--grad-hero);position:relative;overflow:hidden}
 .countdown-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem;margin-top:3rem}
 @media(min-width:640px){.countdown-grid{grid-template-columns:repeat(4,1fr);gap:1.5rem}}
@@ -122,7 +191,7 @@ section{padding:5rem 1rem}
 .cd-cell .num{font-family:'Cormorant Garamond',serif;font-size:clamp(2.25rem,7vw,3.75rem);font-weight:600;color:var(--burgundy);line-height:1}
 .cd-cell .lbl{text-transform:uppercase;letter-spacing:.15em;color:var(--muted);font-size:.75rem;margin-top:.3rem}
 
-/* Gallery */
+/* ---------- GALLERY ---------- */
 .gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem}
 @media(min-width:640px){.gallery{grid-template-columns:repeat(3,1fr);gap:1rem}}
 @media(min-width:900px){.gallery{grid-template-columns:repeat(4,1fr)}}
@@ -132,7 +201,7 @@ section{padding:5rem 1rem}
 .gallery button:hover img{transform:scale(1.1)}
 .gallery button:hover{box-shadow:var(--shadow-elegant)}
 
-/* RSVP */
+/* ---------- RSVP ---------- */
 .rsvp-form{margin-top:2.5rem;background:var(--card);border-radius:1.5rem;padding:1.75rem;box-shadow:var(--shadow-elegant);display:flex;flex-direction:column;gap:1.25rem}
 @media(min-width:640px){.rsvp-form{padding:2.5rem}}
 .field label{display:block;text-transform:uppercase;letter-spacing:.15em;font-size:.7rem;font-weight:600;color:var(--muted);margin-bottom:.5rem}
@@ -146,7 +215,7 @@ section{padding:5rem 1rem}
 .status-btn.active{background:var(--grad-elegant);color:#fff;border-color:transparent;box-shadow:var(--shadow-soft)}
 .success{text-align:center;color:var(--rose);font-size:.9rem}
 
-/* Wishes */
+/* ---------- WISHES ---------- */
 .wishes-grid{margin-top:2.5rem;display:grid;gap:1rem}
 @media(min-width:640px){.wishes-grid{grid-template-columns:1fr 1fr}}
 .wish{background:var(--card);border-radius:1.25rem;padding:1.25rem;box-shadow:var(--shadow-soft);transition:box-shadow .3s}
@@ -157,18 +226,36 @@ section{padding:5rem 1rem}
 .wish .stat{font-size:.75rem;color:var(--muted)}
 .wish .msg{margin-top:.75rem;font-style:italic;color:rgba(43,26,30,.85);font-size:.9rem}
 .empty{text-align:center;color:var(--muted);font-size:.9rem;margin-top:2.5rem}
+.wishes-loading{text-align:center;color:var(--muted);font-size:.85rem;margin-top:1.5rem}
 
-/* Footer */
+/* ---------- GIFTS ---------- */
+.gifts{background:var(--cream)}
+.gift-note{text-align:center;color:var(--muted);max-width:36rem;margin:0 auto 2rem}
+.gift-grid{display:grid;gap:1rem;grid-template-columns:1fr}
+@media(min-width:640px){.gift-grid{grid-template-columns:repeat(2,1fr)}}
+.gift-card{background:#fff;border-radius:1.25rem;padding:1.5rem;box-shadow:var(--shadow-soft);display:flex;flex-direction:column;gap:.4rem;align-items:flex-start}
+.gift-card .bank{font-weight:600;color:var(--burgundy);font-size:1.05rem}
+.gift-card .num{font-family:'Cormorant Garamond',serif;font-size:1.35rem;color:var(--fg);letter-spacing:.03em}
+.gift-card .holder{font-size:.85rem;color:var(--muted)}
+.gift-card button{margin-top:.5rem;padding:.5rem 1rem;border-radius:999px;border:1px solid var(--border);font-size:.8rem}
+.gift-card button:hover{border-color:var(--rose);color:var(--rose)}
+
+/* ---------- FLOATING CONTROLS ---------- */
+.fab{position:fixed;bottom:1.25rem;right:1.25rem;z-index:50;display:flex;flex-direction:column;gap:.6rem}
+.fab button{width:2.75rem;height:2.75rem;border-radius:999px;background:var(--card);box-shadow:var(--shadow-elegant);display:flex;align-items:center;justify-content:center;font-size:1.1rem;transition:transform .2s}
+.fab button:hover{transform:scale(1.08)}
+
+/* ---------- FOOTER ---------- */
 footer{border-top:1px solid var(--border);background:rgba(255,255,255,.5);text-align:center;padding:2.5rem 1rem}
 footer .script{font-size:2rem}
 footer p{color:var(--muted);font-size:.85rem;margin-top:.5rem}
 
-/* Toast */
+/* ---------- TOAST ---------- */
 .toast{position:fixed;top:1.5rem;left:50%;transform:translateX(-50%);z-index:60;background:var(--card);padding:.75rem 1.25rem;border-radius:999px;box-shadow:var(--shadow-elegant);font-size:.9rem;animation:fadeUp .3s ease}
 .toast.err{color:#c0392b}
 .toast.ok{color:var(--burgundy)}
 
-/* Lightbox */
+/* ---------- LIGHTBOX ---------- */
 .lb{position:fixed;inset:0;z-index:70;background:rgba(90,31,43,.92);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:1rem}
 .lb img{max-height:85vh;max-width:100%;border-radius:1rem;box-shadow:var(--shadow-elegant)}
 .lb .x{position:absolute;top:1.25rem;right:1.5rem;color:rgba(255,255,255,.9);font-size:1.75rem}
@@ -182,7 +269,7 @@ footer p{color:var(--muted);font-size:.85rem;margin-top:.5rem}
 </head>
 <body>
 
-<!-- LOGIN -->
+<!-- ══════════════════ LOGIN ══════════════════ -->
 <main id="login" class="login-wrap">
   <div class="petals" id="petals-login"></div>
   <div class="login-card">
@@ -199,11 +286,13 @@ footer p{color:var(--muted);font-size:.85rem;margin-top:.5rem}
   </div>
 </main>
 
-<!-- APP -->
+<!-- ══════════════════ APP ══════════════════ -->
 <div id="app" class="hidden">
+
+  <!-- Navigation -->
   <nav class="nav">
     <div class="nav-inner">
-      <a href="#hero" class="brand">Celebrate</a>
+      <a href="#hero" class="brand" id="brandName">Birthday</a>
       <ul>
         <li><a href="#detail">Detail</a></li>
         <li><a href="#countdown">Countdown</a></li>
@@ -215,13 +304,14 @@ footer p{color:var(--muted);font-size:.85rem;margin-top:.5rem}
     </div>
   </nav>
 
+  <!-- Hero -->
   <header id="hero" class="hero">
     <div id="slides"></div>
     <div class="overlay"></div>
     <div class="petals" id="petals-hero"></div>
     <div class="hero-content">
-      <p class="script text-shimmer fade-up">You're invited</p>
-      <h1 class="fade-up" style="animation-delay:.15s">Happy Birthday</h1>
+      <p class="script text-shimmer fade-up" id="heroTagline">You're invited</p>
+      <h1 class="fade-up" id="heroTitle" style="animation-delay:.15s"></h1>
       <div class="divider fade-up" style="animation-delay:.3s"><span class="line" style="background:rgba(212,163,74,.7)"></span><span class="star">✦</span><span class="line" style="background:rgba(212,163,74,.7)"></span></div>
       <p class="greet fade-up" style="animation-delay:.4s">Halo, <b class="text-shimmer" id="guestGreet"></b> — mari rayakan hari spesial ini bersama.</p>
       <div class="hero-actions fade-up" style="animation-delay:.55s">
@@ -232,32 +322,35 @@ footer p{color:var(--muted);font-size:.85rem;margin-top:.5rem}
     <div class="scroll-cue"><span>Scroll</span><span class="bar"></span></div>
   </header>
 
+  <!-- Detail -->
   <section id="detail">
     <div class="container">
       <div class="section-heading">
-        <p class="script">The Details</p>
-        <h2>Detail Acara</h2>
+        <p class="script">Event Details</p>
+        <h2>Ini detail acaranya yaah.</h2>
         <div class="divider"><span class="line"></span><span class="star">✦</span><span class="line"></span></div>
       </div>
       <div class="detail-grid">
-        <div class="detail-card"><div class="detail-icon">📅</div><p class="label">Tanggal</p><p class="value">20 Agustus 2026</p><p class="sub">Kamis</p></div>
-        <div class="detail-card"><div class="detail-icon">🕖</div><p class="label">Waktu</p><p class="value">19:00 WIB</p><p class="sub">Sampai selesai</p></div>
-        <div class="detail-card"><div class="detail-icon">📍</div><p class="label">Lokasi</p><p class="value">Bandung</p><p class="sub">Indonesia</p></div>
+        <div class="detail-card"><div class="detail-icon">📅</div><p class="label">Tanggal</p><p class="value" id="dDate"></p><p class="sub" id="dDay"></p></div>
+        <div class="detail-card"><div class="detail-icon">🕖</div><p class="label">Waktu</p><p class="value" id="dTime"></p><p class="sub" id="dTimeSub"></p></div>
+        <div class="detail-card"><div class="detail-icon">📍</div><p class="label">Lokasi</p><p class="value" id="dVenue"></p><p class="sub" id="dVenueSub"></p></div>
       </div>
       <div class="detail-actions">
-        <a href="https://maps.google.com/?q=Bandung" target="_blank" rel="noreferrer" class="btn btn-primary">Lihat di Peta</a>
+        <a id="mapsLink" target="_blank" rel="noreferrer" class="btn btn-primary">Lihat di Peta</a>
         <button class="btn btn-outline" id="calBtn">+ Tambahkan ke Kalender</button>
         <button class="btn btn-outline" id="copyBtn">Salin Alamat</button>
+        <button class="btn btn-outline" id="shareBtn">Bagikan Undangan</button>
       </div>
     </div>
   </section>
 
+  <!-- Countdown -->
   <section id="countdown" class="countdown-sec">
     <div class="petals" id="petals-cd"></div>
     <div class="container-md" style="position:relative;z-index:2">
       <div class="section-heading">
         <p class="script" style="color:var(--burgundy)">Counting Down</p>
-        <h2>Menuju Hari Spesial</h2>
+        <h2>Menuju Birthday Party</h2>
         <div class="divider"><span class="line"></span><span class="star">✦</span><span class="line"></span></div>
       </div>
       <div class="countdown-grid">
@@ -269,17 +362,19 @@ footer p{color:var(--muted);font-size:.85rem;margin-top:.5rem}
     </div>
   </section>
 
+  <!-- Gallery -->
   <section id="gallery">
     <div class="container">
       <div class="section-heading">
-        <p class="script">Moments</p>
-        <h2>Galeri</h2>
+        <p class="script">The Moments of</p>
+        <h2 id="galleryTitle"></h2>
         <div class="divider"><span class="line"></span><span class="star">✦</span><span class="line"></span></div>
       </div>
       <div class="gallery" id="galleryGrid"></div>
     </div>
   </section>
 
+  <!-- RSVP -->
   <section id="rsvp">
     <div class="container-sm">
       <div class="section-heading">
@@ -303,6 +398,20 @@ footer p{color:var(--muted);font-size:.85rem;margin-top:.5rem}
     </div>
   </section>
 
+  <!-- Gifts (opsional) -->
+  <section id="gifts" class="gifts hidden">
+    <div class="container-md">
+      <div class="section-heading">
+        <p class="script">With Love</p>
+        <h2>Kado & Amplop Digital</h2>
+        <div class="divider"><span class="line"></span><span class="star">✦</span><span class="line"></span></div>
+      </div>
+      <p class="gift-note" id="giftNote"></p>
+      <div class="gift-grid" id="giftGrid"></div>
+    </div>
+  </section>
+
+  <!-- Wishes -->
   <section id="wishes" style="padding-top:0">
     <div class="container-md">
       <div class="section-heading">
@@ -318,62 +427,94 @@ footer p{color:var(--muted);font-size:.85rem;margin-top:.5rem}
     <p class="script">Thank You</p>
     <p>Dibuat dengan ❤️ untuk merayakan hari spesial.</p>
   </footer>
+
+  <!-- Floating action buttons -->
+  <div class="fab">
+    <button id="musicBtn" title="Musik latar" class="hidden">🎵</button>
+    <button id="topBtn" title="Kembali ke atas">↑</button>
+  </div>
 </div>
 
 <div id="toast"></div>
 <div id="lightbox"></div>
+<audio id="bgMusic" loop></audio>
 
+<!-- ═══════════════════ SCRIPT ═══════════════════ -->
 <script>
-const GUEST_LIST = ["Ardo","Budi","Siti","Andi","Rina","Dewi"];
-const EVENT_DATE = new Date("2026-08-20T19:00:00+07:00");
-const IMAGES = [
-  "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=1400&q=80",
-  "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=1400&q=80",
-  "https://images.unsplash.com/photo-1513151233558-d860c5398176?w=1400&q=80",
-  "https://images.unsplash.com/photo-1478146896981-b80fe463b330?w=1400&q=80",
-  "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=1400&q=80",
-  "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?w=1400&q=80",
-];
+/* ===== Shortcut helpers ===== */
+const $  = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+const CFG = window.CONFIG;
+const EVENT_DATE = new Date(CFG.EVENT.dateISO);
 
-const $ = (s,r=document)=>r.querySelector(s);
-const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+/* ===== Apply theme from CONFIG ===== */
+(function applyTheme(){
+  const t = CFG.THEME || {};
+  const r = document.documentElement.style;
+  if (t.bg)       r.setProperty("--bg",       t.bg);
+  if (t.rose)     r.setProperty("--rose",     t.rose);
+  if (t.burgundy) r.setProperty("--burgundy", t.burgundy);
+  if (t.gold)     r.setProperty("--gold",     t.gold);
+})();
 
-// petals
-function makePetals(container,count=14){
-  const colors=["#f4b8c8","#e8c07a","#f8dce4"];
-  for(let i=0;i<count;i++){
-    const s=document.createElement("span");
-    const size=10+Math.random()*18;
-    s.style.left=Math.random()*100+"%";
-    s.style.animationDelay=(Math.random()*12)+"s";
-    s.style.animationDuration=(12+Math.random()*12)+"s";
-    s.innerHTML=`<svg width="${size}" height="${size}" viewBox="0 0 20 20"><path d="M10 2 C 13 6, 18 8, 10 18 C 2 8, 7 6, 10 2 Z" fill="${colors[i%3]}" opacity=".85"/></svg>`;
+/* ===== Petal decoration ===== */
+function makePetals(container, count=14){
+  if (!container) return;
+  const colors = ["#f4b8c8","#e8c07a","#f8dce4"];
+  for (let i=0;i<count;i++){
+    const s = document.createElement("span");
+    const size = 10 + Math.random()*18;
+    s.style.left = Math.random()*100 + "%";
+    s.style.animationDelay    = (Math.random()*12) + "s";
+    s.style.animationDuration = (12 + Math.random()*12) + "s";
+    s.innerHTML = `<svg width="${size}" height="${size}" viewBox="0 0 20 20"><path d="M10 2 C 13 6, 18 8, 10 18 C 2 8, 7 6, 10 2 Z" fill="${colors[i%3]}" opacity=".85"/></svg>`;
     container.appendChild(s);
   }
 }
 makePetals($("#petals-login"));
 
-// Login
-$("#guestList").textContent="Tamu terdaftar: "+GUEST_LIST.join(", ");
-let guest = null;
-try{guest = localStorage.getItem("guest");}catch{}
-if(guest) enterApp(guest);
+/* ===== Toast ===== */
+let toastTimer;
+function toast(msg, type="ok"){
+  const el = $("#toast");
+  el.innerHTML = `<div class="toast ${type}">${msg}</div>`;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=> el.innerHTML = "", 3200);
+}
 
-$("#loginForm").addEventListener("submit",e=>{
+/* ===== Login flow ===== */
+$("#guestList").textContent = "Tamu terdaftar: " + CFG.GUEST_LIST.join(", ");
+
+let guest = null;
+try { guest = localStorage.getItem("guest"); } catch {}
+// Auto-open jika ada ?to=Nama di URL
+const urlGuest = new URLSearchParams(location.search).get("to");
+if (urlGuest) {
+  const m = CFG.GUEST_LIST.find(g => g.toLowerCase() === urlGuest.toLowerCase());
+  if (m) guest = m;
+}
+if (guest) enterApp(guest);
+
+$("#loginForm").addEventListener("submit", e => {
   e.preventDefault();
   const name = $("#loginName").value.trim();
-  const err = $("#loginErr");
-  if(!name){err.textContent="Silakan masukkan nama Anda.";err.classList.remove("hidden");return;}
-  const match = GUEST_LIST.find(g=>g.toLowerCase()===name.toLowerCase());
-  if(!match){err.textContent="Maaf, nama Anda tidak terdaftar sebagai tamu.";err.classList.remove("hidden");return;}
+  const err  = $("#loginErr");
+  if (!name){ err.textContent = "Silakan masukkan nama Anda."; err.classList.remove("hidden"); return; }
+  const match = CFG.GUEST_LIST.find(g => g.toLowerCase() === name.toLowerCase());
+  if (!match){ err.textContent = "Maaf, nama Anda tidak terdaftar sebagai tamu."; err.classList.remove("hidden"); return; }
   err.classList.add("hidden");
-  try{localStorage.setItem("guest",match);}catch{}
+  try { localStorage.setItem("guest", match); } catch {}
   enterApp(match);
 });
 
-$("#logoutBtn").addEventListener("click",()=>{
-  try{localStorage.removeItem("guest");}catch{}
-  location.reload();
+$("#logoutBtn").addEventListener("click", () => {
+  if (!confirm("Apakah Anda yakin ingin keluar?")) return;
+  try { localStorage.removeItem("guest"); } catch {}
+  guest = null;
+  $("#app").classList.add("hidden");
+  $("#login").classList.remove("hidden");
+  $("#loginName").value = "";
+  $("#loginErr").classList.add("hidden");
 });
 
 function enterApp(name){
@@ -385,137 +526,265 @@ function enterApp(name){
   initApp();
 }
 
+/* ===== App initialisation ===== */
 function initApp(){
-  // slides
-  const slidesRoot = $("#slides");
-  IMAGES.forEach((src,i)=>{
-    const d=document.createElement("div");
-    d.className="slide"+(i===0?" active":"");
-    d.style.backgroundImage=`url(${src})`;
-    slidesRoot.appendChild(d);
-  });
-  let idx=0;
-  setInterval(()=>{
-    const slides=$$(".slide",slidesRoot);
-    slides[idx].classList.remove("active");
-    idx=(idx+1)%slides.length;
-    slides[idx].classList.add("active");
-  },5000);
-
+  fillEventDetails();
+  buildSlides();
   makePetals($("#petals-hero"));
   makePetals($("#petals-cd"));
+  buildGallery();
+  startCountdown();
+  bindDetailActions();
+  bindRsvp();
+  buildGifts();
+  bindFabs();
+  loadWishes();
+}
 
-  // gallery
-  const g=$("#galleryGrid");
-  IMAGES.forEach((src,i)=>{
-    const b=document.createElement("button");
-    b.className = i%5===0?"big":"";
-    b.innerHTML=`<img src="${src}" loading="lazy" alt="Momen ${i+1}"/>`;
-    b.addEventListener("click",()=>openLightbox(i));
+/* ---- Isi teks dari CONFIG.EVENT ---- */
+function fillEventDetails(){
+  const E = CFG.EVENT;
+  document.title            = `Undangan Ulang Tahun ${E.honoree}`;
+  $("#brandName").textContent = `${E.honoree} Birthday`;
+  $("#heroTagline").textContent = E.tagline;
+  $("#heroTitle").textContent   = E.title;
+  $("#galleryTitle").textContent = E.honoree;
+  $("#dDate").textContent    = E.dateLabel;
+  $("#dDay").textContent     = E.dayLabel;
+  $("#dTime").textContent    = E.timeLabel;
+  $("#dTimeSub").textContent = E.timeSub;
+  $("#dVenue").textContent   = E.venue;
+  $("#dVenueSub").textContent= E.venueSub;
+  $("#mapsLink").href        = E.mapsUrl;
+}
+
+/* ---- Hero slides ---- */
+function buildSlides(){
+  const root = $("#slides");
+  CFG.IMAGES.forEach((src,i)=>{
+    const d = document.createElement("div");
+    d.className = "slide" + (i===0 ? " active" : "");
+    d.style.backgroundImage = `url(${src})`;
+    root.appendChild(d);
+  });
+  let idx = 0;
+  setInterval(()=>{
+    const slides = $$(".slide", root);
+    slides[idx].classList.remove("active");
+    idx = (idx + 1) % slides.length;
+    slides[idx].classList.add("active");
+  }, 5000);
+}
+
+/* ---- Gallery ---- */
+function buildGallery(){
+  const g = $("#galleryGrid");
+  CFG.IMAGES.forEach((src,i)=>{
+    const b = document.createElement("button");
+    b.className = i % 5 === 0 ? "big" : "";
+    b.innerHTML = `<img src="${src}" loading="lazy" alt="Momen ${i+1}"/>`;
+    b.addEventListener("click", ()=> openLightbox(i));
     g.appendChild(b);
   });
+}
 
-  // countdown
-  const tick=()=>{
-    const diff=Math.max(0,EVENT_DATE.getTime()-Date.now());
-    $("#cd-d").textContent=String(Math.floor(diff/86400000)).padStart(2,"0");
-    $("#cd-h").textContent=String(Math.floor(diff/3600000)%24).padStart(2,"0");
-    $("#cd-m").textContent=String(Math.floor(diff/60000)%60).padStart(2,"0");
-    $("#cd-s").textContent=String(Math.floor(diff/1000)%60).padStart(2,"0");
+/* ---- Countdown ---- */
+function startCountdown(){
+  const tick = () => {
+    const diff = Math.max(0, EVENT_DATE.getTime() - Date.now());
+    $("#cd-d").textContent = String(Math.floor(diff/86400000)).padStart(2,"0");
+    $("#cd-h").textContent = String(Math.floor(diff/3600000)%24).padStart(2,"0");
+    $("#cd-m").textContent = String(Math.floor(diff/60000)%60).padStart(2,"0");
+    $("#cd-s").textContent = String(Math.floor(diff/1000)%60).padStart(2,"0");
   };
-  tick();setInterval(tick,1000);
+  tick();
+  setInterval(tick, 1000);
+}
 
-  // detail buttons
-  $("#calBtn").addEventListener("click",()=>{
-    const url=`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("Birthday Celebration")}&dates=20260820T120000Z/20260820T150000Z&details=${encodeURIComponent("Mari rayakan hari spesial ini bersama.")}&location=${encodeURIComponent("Bandung, Indonesia")}`;
-    window.open(url,"_blank");
-  });
-  $("#copyBtn").addEventListener("click",async()=>{
-    try{
-      await navigator.clipboard.writeText("Bandung, Indonesia");
-      $("#copyBtn").textContent="✓ Alamat Disalin";
-      setTimeout(()=>$("#copyBtn").textContent="Salin Alamat",1800);
-    }catch{toast("Gagal menyalin","err");}
+/* ---- Detail action buttons ---- */
+function bindDetailActions(){
+  const E = CFG.EVENT;
+
+  $("#calBtn").addEventListener("click", () => {
+    const url = `https://calendar.google.com/calendar/render?action=TEMPLATE`
+      + `&text=${encodeURIComponent(E.title)}`
+      + `&dates=${E.calStart}/${E.calEnd}`
+      + `&details=${encodeURIComponent("Mari rayakan acara ulang tahun " + E.honoree + " bersama.")}`
+      + `&location=${encodeURIComponent(E.address)}`;
+    window.open(url, "_blank");
   });
 
-  // rsvp
-  let status="";
-  const statusBtns=$$(".status-btn");
-  statusBtns.forEach(b=>b.addEventListener("click",()=>{
-    status=b.dataset.status;
-    statusBtns.forEach(x=>x.classList.toggle("active",x===b));
+  $("#copyBtn").addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(E.address);
+      $("#copyBtn").textContent = "✓ Alamat Disalin";
+      setTimeout(()=> $("#copyBtn").textContent = "Salin Alamat", 1800);
+    } catch { toast("Gagal menyalin", "err"); }
+  });
+
+  $("#shareBtn").addEventListener("click", async () => {
+    const shareText = `Kamu diundang ke ${E.title} — ${E.dateLabel} @ ${E.venue}. Buka undangan: ${location.origin + location.pathname}`;
+    if (navigator.share) {
+      try { await navigator.share({ title: E.title, text: shareText, url: location.href }); }
+      catch {}
+    } else {
+      const wa = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+      window.open(wa, "_blank");
+    }
+  });
+}
+
+/* ---- RSVP ---- */
+function bindRsvp(){
+  let status = "";
+  const statusBtns = $$(".status-btn");
+  statusBtns.forEach(b => b.addEventListener("click", () => {
+    status = b.dataset.status;
+    statusBtns.forEach(x => x.classList.toggle("active", x === b));
   }));
-  let rsvps=[];
-  try{rsvps=JSON.parse(localStorage.getItem("rsvps")||"[]");}catch{}
-  renderWishes(rsvps);
 
-  $("#rsvpForm").addEventListener("submit",e=>{
+  $("#rsvpForm").addEventListener("submit", async e => {
     e.preventDefault();
-    if(!status){toast("Silakan pilih status kehadiran.","err");return;}
-    const entry={nama:guest,status,ucapan:$("#rsvpMsg").value.trim(),timestamp:new Date().toISOString()};
-    rsvps=[entry,...rsvps.filter(r=>r.nama!==guest)];
-    try{localStorage.setItem("rsvps",JSON.stringify(rsvps));}catch{}
-    $("#rsvpOk").classList.remove("hidden");
-    $("#rsvpSubmit").textContent="Perbarui Konfirmasi";
-    toast("Terima kasih! Konfirmasi Anda tersimpan 🎉","ok");
-    renderWishes(rsvps);
+    if (!status){ toast("Silakan pilih status kehadiran.", "err"); return; }
+
+    const entry = {
+      nama:     guest,
+      status,
+      ucapan:   $("#rsvpMsg").value.trim(),
+      timestamp: new Date().toISOString()
+    };
+
+    const btn = $("#rsvpSubmit");
+    btn.disabled = true;
+    const oldText = btn.textContent;
+    btn.textContent = "Mengirim...";
+
+    try {
+      // NB: pakai text/plain agar tidak trigger CORS preflight ke Apps Script
+      const res = await fetch(CFG.WEB_APP_URL, {
+        method:  "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body:    JSON.stringify(entry)
+      });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      $("#rsvpOk").classList.remove("hidden");
+      btn.textContent = "Perbarui Konfirmasi";
+      toast("Terima kasih! Konfirmasi Anda tersimpan 🎉", "ok");
+      loadWishes();
+    } catch (err) {
+      console.error(err);
+      btn.textContent = oldText;
+      toast("Gagal mengirim ke server.", "err");
+    } finally {
+      btn.disabled = false;
+    }
   });
+}
+
+/* ---- Wishes wall (doGet) ---- */
+async function loadWishes(){
+  const wrap = $("#wishesList");
+  wrap.className = "";
+  wrap.innerHTML = `<p class="wishes-loading">Memuat ucapan...</p>`;
+  try {
+    const res  = await fetch(CFG.WEB_APP_URL);
+    const data = await res.json();
+    if (!Array.isArray(data)) throw new Error("Format data tidak valid");
+    data.sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
+    renderWishes(data);
+  } catch (err) {
+    console.error(err);
+    wrap.innerHTML = `<p class="empty">Gagal memuat ucapan. Coba muat ulang halaman.</p>`;
+  }
 }
 
 function renderWishes(list){
-  const wrap=$("#wishesList");
-  const filtered=list.filter(r=>r.ucapan);
-  if(!filtered.length){
-    wrap.className="";
-    wrap.innerHTML=`<p class="empty">Belum ada ucapan. Jadilah yang pertama mengirim doa terbaik ✨</p>`;
+  const wrap = $("#wishesList");
+  const filtered = list.filter(r => r.ucapan && String(r.ucapan).trim() !== "");
+  if (!filtered.length){
+    wrap.className = "";
+    wrap.innerHTML = `<p class="empty">Belum ada ucapan. Jadilah yang pertama mengirim doa terbaik ✨</p>`;
     return;
   }
-  wrap.className="wishes-grid";
-  wrap.innerHTML=filtered.map(r=>`
+  wrap.className = "wishes-grid";
+  wrap.innerHTML = filtered.map(r => `
     <div class="wish">
       <div class="wish-head">
-        <div class="avatar">${r.nama[0]}</div>
+        <div class="avatar">${(r.nama||"?")[0].toUpperCase()}</div>
         <div>
-          <div class="name">${r.nama}</div>
-          <div class="stat">${r.status==="Hadir"?"🎉 Hadir":"😢 Tidak Hadir"}</div>
+          <div class="name">${escapeHtml(r.nama)}</div>
+          <div class="stat">${r.status === "Hadir" ? "🎉 Hadir" : "😢 Tidak Hadir"}</div>
         </div>
       </div>
-      <p class="msg">"${r.ucapan.replace(/</g,"&lt;")}"</p>
+      <p class="msg">"${escapeHtml(String(r.ucapan))}"</p>
     </div>`).join("");
 }
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[c])); }
 
-// toast
-let toastTimer;
-function toast(msg,type="ok"){
-  const el=$("#toast");
-  el.innerHTML=`<div class="toast ${type}">${msg}</div>`;
-  clearTimeout(toastTimer);
-  toastTimer=setTimeout(()=>el.innerHTML="",3200);
+/* ---- Gifts / amplop digital ---- */
+function buildGifts(){
+  const G = CFG.GIFTS;
+  if (!G || !G.enabled || !G.accounts?.length) return;
+  $("#gifts").classList.remove("hidden");
+  $("#giftNote").textContent = G.note || "";
+  $("#giftGrid").innerHTML = G.accounts.map(a => `
+    <div class="gift-card">
+      <div class="bank">${escapeHtml(a.bank)}</div>
+      <div class="num" data-copy="${escapeHtml(a.number)}">${escapeHtml(a.number)}</div>
+      <div class="holder">a.n. ${escapeHtml(a.holder)}</div>
+      <button type="button">Salin Nomor</button>
+    </div>`).join("");
+  $$("#giftGrid .gift-card button").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const num = btn.parentElement.querySelector(".num").dataset.copy;
+      try { await navigator.clipboard.writeText(num); btn.textContent = "✓ Disalin"; setTimeout(()=>btn.textContent="Salin Nomor",1600); }
+      catch { toast("Gagal menyalin","err"); }
+    });
+  });
 }
 
-// lightbox
-let lbIdx=null;
-function openLightbox(i){lbIdx=i;renderLb();}
-function closeLb(){lbIdx=null;$("#lightbox").innerHTML="";}
+/* ---- Floating buttons: music + scroll top ---- */
+function bindFabs(){
+  $("#topBtn").addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+  const M = CFG.MUSIC;
+  if (M?.enabled && M.url){
+    const audio = $("#bgMusic");
+    audio.src = M.url;
+    const btn = $("#musicBtn");
+    btn.classList.remove("hidden");
+    let playing = false;
+    btn.addEventListener("click", () => {
+      if (playing){ audio.pause(); btn.textContent = "🎵"; }
+      else { audio.play().catch(()=>toast("Tidak bisa memutar musik","err")); btn.textContent = "⏸"; }
+      playing = !playing;
+    });
+  }
+}
+
+/* ---- Lightbox ---- */
+let lbIdx = null;
+function openLightbox(i){ lbIdx = i; renderLb(); }
+function closeLb(){ lbIdx = null; $("#lightbox").innerHTML = ""; }
 function renderLb(){
-  const lb=$("#lightbox");
-  lb.innerHTML=`<div class="lb">
+  const lb = $("#lightbox");
+  lb.innerHTML = `<div class="lb">
     <button class="x">✕</button>
     <button class="arr l">‹</button>
-    <img src="${IMAGES[lbIdx]}" alt=""/>
+    <img src="${CFG.IMAGES[lbIdx]}" alt=""/>
     <button class="arr r">›</button>
   </div>`;
-  const root=lb.firstElementChild;
-  root.addEventListener("click",e=>{if(e.target===root)closeLb();});
-  root.querySelector(".x").addEventListener("click",closeLb);
-  root.querySelector(".l").addEventListener("click",e=>{e.stopPropagation();lbIdx=(lbIdx-1+IMAGES.length)%IMAGES.length;renderLb();});
-  root.querySelector(".r").addEventListener("click",e=>{e.stopPropagation();lbIdx=(lbIdx+1)%IMAGES.length;renderLb();});
+  const root = lb.firstElementChild;
+  root.addEventListener("click", e => { if (e.target === root) closeLb(); });
+  root.querySelector(".x").addEventListener("click", closeLb);
+  root.querySelector(".l").addEventListener("click", e => { e.stopPropagation(); lbIdx = (lbIdx - 1 + CFG.IMAGES.length) % CFG.IMAGES.length; renderLb(); });
+  root.querySelector(".r").addEventListener("click", e => { e.stopPropagation(); lbIdx = (lbIdx + 1) % CFG.IMAGES.length; renderLb(); });
 }
-document.addEventListener("keydown",e=>{
-  if(lbIdx===null)return;
-  if(e.key==="Escape")closeLb();
-  if(e.key==="ArrowLeft"){lbIdx=(lbIdx-1+IMAGES.length)%IMAGES.length;renderLb();}
-  if(e.key==="ArrowRight"){lbIdx=(lbIdx+1)%IMAGES.length;renderLb();}
+document.addEventListener("keydown", e => {
+  if (lbIdx === null) return;
+  if (e.key === "Escape") closeLb();
+  if (e.key === "ArrowLeft"){  lbIdx = (lbIdx - 1 + CFG.IMAGES.length) % CFG.IMAGES.length; renderLb(); }
+  if (e.key === "ArrowRight"){ lbIdx = (lbIdx + 1) % CFG.IMAGES.length; renderLb(); }
 });
 </script>
 </body>
