@@ -182,7 +182,7 @@ a{color:inherit;text-decoration:none}
 .hero-content .greet b{font-style:normal;font-weight:600}
 .hero-actions{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin-top:1.75rem}
 
-.hero-divider-icon{margin:1.6rem 0 .8rem;color:var(--gold);font-size:1.1rem;letter-spacing:.6em;text-align:center;padding-left:.6em}
+.hero-divider-icon{margin:1.6rem 0 .8rem;color:var(--gold);font-size:1.1rem;letter-spacing:.0em;text-align:center;padding-left:.0em}
 .hero-countdown-title{font-family:'Great Vibes',cursive;font-size:1.75rem;color:var(--gold);margin-bottom:.75rem;text-align:center;text-shadow:0 2px 8px rgba(0,0,0,.3)}
 @media(min-width:480px){.hero-countdown-title{font-size:2.1rem}}
 .hero-countdown{margin-top:.75rem;display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;max-width:22rem;margin-left:auto;margin-right:auto}
@@ -194,7 +194,7 @@ a{color:inherit;text-decoration:none}
 .hero-time .lbl{margin-top:.4rem;color:#fff;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;opacity:.9}
 @media(min-width:480px){.hero-time .lbl{font-size:.68rem;letter-spacing:.2em}}
 
-.scroll-cue{position:absolute;bottom:1rem;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.8);font-size:.7rem;display:flex;flex-direction:column;align-items:center;gap:.25rem}
+.scroll-cue{position:absolute;bottom:0rem;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.8);font-size:.7rem;display:flex;flex-direction:column;align-items:center;gap:.25rem}
 .scroll-cue .bar{height:1.75rem;width:1px;background:rgba(255,255,255,.6);animation:pulse 1.5s ease-in-out infinite}
 @keyframes pulse{50%{opacity:.3}}
 
@@ -355,7 +355,12 @@ footer p{color:var(--muted);font-size:.82rem;margin-top:.5rem}
       <p class="script text-shimmer fade-up" id="heroTagline">You're invited</p>
       <h1 class="fade-up" id="heroTitle" style="animation-delay:.15s"></h1>
       <div class="divider fade-up" style="animation-delay:.3s"><span class="line" style="background:rgba(212,163,74,.7)"></span><span class="star">✦</span><span class="line" style="background:rgba(212,163,74,.7)"></span></div>
-      <p class="greet fade-up" style="animation-delay:.4s">Halo, <b class="text-shimmer" id="guestGreet"></b> — mari rayakan hari spesial ini bersama.</p>
+      <p class="greet fade-up" style="animation-delay:.4s">
+✨ Hai <b class="text-shimmer" id="guestGreet"></b>! 💖<br>
+
+Akhirnya kamu datang juga <br>
+Yuk rayakan moment spesialku sama-sama! 🎉🎁🍰
+</p>
       <div class="hero-actions fade-up" style="animation-delay:.55s">
         <a href="#detail" class="btn btn-gold">Lihat Detail</a>
         <a href="#rsvp" class="btn btn-ghost">Konfirmasi Kehadiran</a>
@@ -370,7 +375,7 @@ footer p{color:var(--muted);font-size:.82rem;margin-top:.5rem}
         <div class="hero-time"><div class="num" id="hero-cd-s">00</div><div class="lbl">Detik</div></div>
       </div>
     </div>
-    <div class="scroll-cue"><span>Scroll</span><span class="bar"></span></div>
+<div class="scroll-cue"><span>Scroll</span><span class="bar"></span></div>
   </header>
 
   <!-- Detail -->
@@ -577,7 +582,7 @@ const Music = (() => {
 })();
 
 /* ===== Login flow ===== */
-$("#guestList").textContent = "Tamu terdaftar: " + CFG.GUEST_LIST.join(", ");
+$("#guestList").textContent = "";
 
 let guest = null;
 try { guest = localStorage.getItem("guest"); } catch {}
@@ -591,13 +596,14 @@ if (guest) enterApp(guest);
 $("#loginForm").addEventListener("submit", e => {
   e.preventDefault();
   const name = $("#loginName").value.trim();
-  const err  = $("#loginErr");
-  if (!name){ err.textContent = "Silakan masukkan nama Anda."; err.classList.remove("hidden"); return; }
-  const match = CFG.GUEST_LIST.find(g => g.toLowerCase() === name.toLowerCase());
-  if (!match){ err.textContent = "Maaf, nama Anda tidak terdaftar sebagai tamu."; err.classList.remove("hidden"); return; }
-  err.classList.add("hidden");
-  try { localStorage.setItem("guest", match); } catch {}
-  enterApp(match);
+
+if (!name){
+    err.textContent = "Silakan masukkan nama Anda.";
+    err.classList.remove("hidden");
+    return;
+}
+
+enterApp(name);
 });
 
 $("#logoutBtn").addEventListener("click", () => {
@@ -718,14 +724,33 @@ function bindDetailActions(){
     } catch { toast("Gagal menyalin", "err"); }
   });
 
-  $("#shareBtn").addEventListener("click", async () => {
-    const shareText = `Kamu diundang ke ${E.title} — ${E.dateLabel} @ ${E.venue}. Buka undangan: ${location.origin + location.pathname}`;
-    if (navigator.share){
-      try { await navigator.share({ title: E.title, text: shareText, url: location.href }); } catch {}
+$("#shareBtn").addEventListener("click", async () => {
+
+    const message =
+`🎉 Kamu diundang ke ${E.title} 🎉
+
+📅 ${E.dateLabel}
+🕒 ${E.timeLabel}
+📍 ${E.venue}
+
+Sampai jumpa di acara Valery yaahh 😊
+
+${location.href}`;
+
+    if (navigator.share) {
+        try {
+            await navigator.share({
+                title: E.title,
+                text: message
+            });
+        } catch(e){}
     } else {
-      window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, "_blank");
+        window.open(
+            `https://wa.me/?text=${encodeURIComponent(message)}`,
+            "_blank"
+        );
     }
-  });
+});
 }
 
 function bindRsvp(){
