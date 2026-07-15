@@ -406,7 +406,6 @@ Yuk rayakan moment spesial Valery bersama-sama!
       <div class="detail-actions">
         <a id="mapsLink" target="_blank" rel="noreferrer" class="btn btn-primary">Lihat di Peta</a>
         <button class="btn btn-outline" id="calBtn">+ Kalender</button>
-        <button class="btn btn-outline" id="copyBtn">Salin Alamat</button>
         <button class="btn btn-outline" id="shareBtn">Bagikan</button>
       </div>
     </div>
@@ -726,14 +725,6 @@ function bindDetailActions(){
       + `&details=${encodeURIComponent("Mari rayakan acara ulang tahun " + E.honoree + " bersama.")}`
       + `&location=${encodeURIComponent(E.address)}`;
     window.open(url, "_blank");
-  });
-
-  $("#copyBtn").addEventListener("click", async () => {
-    try {
-      await navigator.clipboard.writeText(E.address);
-      $("#copyBtn").textContent = "✓ Disalin";
-      setTimeout(()=> $("#copyBtn").textContent = "Salin Alamat", 1800);
-    } catch { toast("Gagal menyalin", "err"); }
   });
 
 $("#shareBtn").addEventListener("click", async () => {
