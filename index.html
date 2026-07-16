@@ -241,7 +241,7 @@ section{padding:3.5rem 1rem}
 .countdown-sec{background:var(--grad-hero);position:relative;overflow:hidden}
 
 /* ---------- GALLERY ---------- */
-.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem}
+.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;grid-auto-flow:dense}
 @media(min-width:640px){.gallery{grid-template-columns:repeat(3,1fr);gap:1rem}}
 @media(min-width:900px){.gallery{grid-template-columns:repeat(4,1fr)}}
 .gallery button{position:relative;overflow:hidden;border-radius:.9rem;box-shadow:var(--shadow-soft);aspect-ratio:1;transition:box-shadow .3s;padding:0}
@@ -693,12 +693,23 @@ function buildSlides(){
 function buildGallery(){
   const g = $("#galleryGrid");
   if (g.childElementCount) return;
-  CFG.IMAGES.forEach((src,i)=>{
+
+  // Mengacak urutan gambar di array (Fisher-Yates Shuffle)
+  for (let i = CFG.IMAGES.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [CFG.IMAGES[i], CFG.IMAGES[j]] = [CFG.IMAGES[j], CFG.IMAGES[i]];
+  }
+
+  CFG.IMAGES.forEach((src, i) => {
     const b = document.createElement("button");
     b.type = "button";
-    b.className = i % 5 === 0 ? "big" : "";
+    
+    // Memberikan peluang 25% (0.25) bagi foto untuk tampil berukuran besar ("big").
+    // Kamu bisa menaikkan/menurunkan angka 0.25 jika ingin foto besar lebih banyak/sedikit.
+    b.className = Math.random() < 0.25 ? "big" : "";
+    
     b.innerHTML = `<img src="${src}" loading="lazy" alt="Momen ${i+1}"/>`;
-    b.addEventListener("click", ()=> openLightbox(i));
+    b.addEventListener("click", () => openLightbox(i));
     g.appendChild(b);
   });
 }
